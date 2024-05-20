@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-push:
@@ -22,17 +22,17 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.Docker File }}
-          password: ${{ secrets.Docker File }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.Docker File }}/react-simple-app:latest .
-          docker tag ${{ secrets.Docker File }}/react-simple-app:latest ${{ secrets.Docker File }}/react-simple-app:ROM
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/react-simple-app:latest .
+          docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/react-simple-app:latest ${{ secrets.DOCKER_HUB_USERNAME }}/react-simple-app:ROM
 
       # Push the Docker image to Docker Hub
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.Docker File }}/react-simple-app:latest
-          docker push ${{ secrets.Docker File }}/react-simple-app:ROM
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-simple-app:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react-simple-app:ROM
